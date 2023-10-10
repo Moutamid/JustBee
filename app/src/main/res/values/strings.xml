@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">JustBee</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="my_loss_array">
+        <item>Queen Loss</item>
+        <item>Drone Layer</item>
+        <item>Worker Layer</item>
+        <item>Starvation</item>
+        <item>Varroa</item>
+        <item>EFB</item>
+        <item>AFB</item>
+        <item>Nosema</item>
+        <item>Chalkbrood</item>
+        <item>Poisoning</item>
+        <item>Bears</item>
+    </string-array>
+
+    <string-array name="my_treats_array">
+        <item>Oxalic Sublimation</item>
+        <item>Oxalic Drench</item>
+        <item>Oxalic Acid Pad</item>
+        <item>Formic Acid Pad</item>
+        <item>Formic Pro Gel Pack</item>
+        <item>Antibiotic</item>
+        <item>Apivar</item>
+        <item>Horsetail Tea</item>
+    </string-array>
+
+
+</resources>

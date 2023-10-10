@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".fragments.AdminFragment">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/honey"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/baloo"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:text="Admin"
+            android:textColor="@color/black"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/bee" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/grey"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_vertical"
+                        android:padding="12dp"
+                        android:text="Manage Colony"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/queenSource"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Queen Source"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/bee"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/queenSourceChipGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/KonaChip"
+                            style="@style/Theme.ChipsColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:checkedIconEnabled="true"
+                            android:text="Kona"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/fosterChip"
+                            style="@style/Theme.ChipsColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            app:checkedIconEnabled="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="Fosters"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/NZChip"
+                            style="@style/Theme.ChipsColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIconEnabled="true"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="NZ"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/LocalChip"
+                            style="@style/Theme.ChipsColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIconEnabled="true"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="Local"
+                            android:textSize="16sp" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/feed"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Feed"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/fan_solid"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <LinearLayout
+                        android:id="@+id/feedList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:text="Select all that apply"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/feedChipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            app:singleSelection="false">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/feederFull"
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:checkedIconEnabled="true"
+                                android:checked="false"
+                                android:text="Inside Feeder Full"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/feederHalf"
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Inside Feed Half"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/barrelFeed"
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                app:checkedIconEnabled="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Barrel Feed"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/pattySingle"
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Pollen Patty – single"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/pattyDouble"
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Polly Patty - double"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addColony"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Add Colony"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/beehive"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/colonyLoss"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Colony Loss Cause"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/chart_simple_solid"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <LinearLayout
+                        android:id="@+id/loss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="8dp"
+                            android:text="Select that apply or type cutom one"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/context"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select only one"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxCornerRadiusBottomEnd="10sp"
+                            app:boxCornerRadiusBottomStart="10sp"
+                            app:boxCornerRadiusTopEnd="10sp"
+                            app:boxCornerRadiusTopStart="10sp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:hintEnabled="true">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/addContext"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pests"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Diseases / Pests"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/disease_solid"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/treatments"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Treatments"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/first_aid_kit"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <LinearLayout
+                        android:id="@+id/treat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:text="Select all that apply"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/treatsChipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            app:singleSelection="false">
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:checkedIconEnabled="true"
+                                android:checked="false"
+                                android:text="Oxalic Sublimation"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Oxalic Drench"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                app:checkedIconEnabled="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Oxalic Acid Pad"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Formic Acid Pad"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Formic Pro Gel Pack"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Antibiotic"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Apivar"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Horsetail Tea"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Theme.ChipsColor"
+                                android:layout_width="wrap_content"
+                                app:checkedIconEnabled="true"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="Other"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="10dp"
+                android:gravity="start|center"
+                android:padding="12dp"
+                android:text="Manage Location"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:backgroundTint="@color/grey"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/location_dot_solid"
+                app:iconPadding="12dp"
+                app:iconTint="@color/black"
+                app:rippleColor="@color/honey_light" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
