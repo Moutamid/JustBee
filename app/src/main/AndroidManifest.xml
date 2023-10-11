@@ -16,7 +16,10 @@
         android:theme="@style/Theme.JustBee"
         tools:targetApi="31">
         <activity
-            android:name=".admin_ui.QueenSourceActivity"
+            android:name=".ui.AddColonyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ManageLocationsActivity"
             android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"
