@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".fragments.DataEntryFragment">
 
     <LinearLayout
@@ -31,4 +33,285 @@
 
     </LinearLayout>
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/grey"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_vertical"
+                        android:padding="12dp"
+                        android:text="Location of Colonies"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/changeLocationAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Change Location"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/feedAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Feed / Medicate"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/treatmentAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Colony Treatment"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/grey"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_vertical"
+                        android:padding="12dp"
+                        android:text="Individual Colony"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/changeLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Change Location"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/feed"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Feed / Medicate"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pests"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Diseases / Pests"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/treatment"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Colony Treatment"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/newQueen"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="New Queen"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/broodAdd"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Brood Add"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/broodRemove"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Brood Remove"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/production"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Honey Production"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/colonyAdd"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Colony Add"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/colonyRemove"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="start|center"
+                        android:padding="12dp"
+                        android:text="Colony Remove"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/grey"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconTint="@color/black"
+                        app:rippleColor="@color/honey_light" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

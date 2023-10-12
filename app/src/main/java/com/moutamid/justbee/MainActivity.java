@@ -13,6 +13,7 @@ import com.moutamid.justbee.fragments.AdminFragment;
 import com.moutamid.justbee.fragments.AnalyticsFragment;
 import com.moutamid.justbee.fragments.DataEntryFragment;
 import com.moutamid.justbee.fragments.HomeFragment;
+import com.moutamid.justbee.utilis.Constants;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
     ActivityMainBinding binding;

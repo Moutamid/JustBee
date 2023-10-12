@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 import com.fxn.stash.Stash;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.moutamid.justbee.Constants;
+import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.databinding.ActivityManageLocationsBinding;
 
@@ -112,7 +111,7 @@ public class ManageLocationsActivity extends AppCompatActivity {
                 locations.remove(name);
                 ManageLocationsActivity.this.locations.remove(name);
                 Stash.put(Constants.LOCATIONS_LIST, locations);
-                notifyDataSetChanged();
+                notifyItemRemoved(holder.getAdapterPosition());
                 ManageLocationsActivity.this.update();
             });
         }

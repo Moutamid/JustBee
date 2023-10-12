@@ -1,9 +1,26 @@
 package com.moutamid.justbee.models;
 
 public class ColonyModel {
-    String id, name, location, colonyOrigin;
+    String id, name, location, colonyOrigin, queenOrigin, feed, pests, Treatment, brood;
     long date;
+    double honeyProduction;
 
+    public ColonyModel() {
+    }
+
+    public ColonyModel(String id, String name, String location, String colonyOrigin, String queenOrigin, String feed, String pests, String treatment, String brood, long date, double honeyProduction) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.colonyOrigin = colonyOrigin;
+        this.queenOrigin = queenOrigin;
+        this.feed = feed;
+        this.pests = pests;
+        Treatment = treatment;
+        this.brood = brood;
+        this.date = date;
+        this.honeyProduction = honeyProduction;
+    }
 
     public ColonyModel(String id, String name, String location, String colonyOrigin, long date) {
         this.id = id;
@@ -11,6 +28,54 @@ public class ColonyModel {
         this.location = location;
         this.colonyOrigin = colonyOrigin;
         this.date = date;
+    }
+
+    public String getBrood() {
+        return brood;
+    }
+
+    public void setBrood(String brood) {
+        this.brood = brood;
+    }
+
+    public String getQueenOrigin() {
+        return queenOrigin;
+    }
+
+    public void setQueenOrigin(String queenOrigin) {
+        this.queenOrigin = queenOrigin;
+    }
+
+    public String getFeed() {
+        return feed;
+    }
+
+    public void setFeed(String feed) {
+        this.feed = feed;
+    }
+
+    public String getPests() {
+        return pests;
+    }
+
+    public void setPests(String pests) {
+        this.pests = pests;
+    }
+
+    public String getTreatment() {
+        return Treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        Treatment = treatment;
+    }
+
+    public double getHoneyProduction() {
+        return honeyProduction;
+    }
+
+    public void setHoneyProduction(double honeyProduction) {
+        this.honeyProduction = honeyProduction;
     }
 
     public String getName() {

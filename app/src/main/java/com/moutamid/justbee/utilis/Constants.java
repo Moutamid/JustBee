@@ -1,11 +1,10 @@
-package com.moutamid.justbee;
+package com.moutamid.justbee.utilis;
 
 import com.moutamid.justbee.R;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.view.Window;
@@ -36,6 +35,7 @@ public class Constants {
     public static final String LOCATIONS_LIST = "LOCATIONS_LIST";
     public static final String COLONY_LOSS = "COLONY_LOSS";
     public static final String COLONY = "COLONY";
+    public static Types types = Types.NULL;
 
     public static String getFormatedDate(long date){
         return new SimpleDateFormat(DATEFORMATE, Locale.getDefault()).format(date);

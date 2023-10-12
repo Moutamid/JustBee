@@ -277,7 +277,7 @@
                             android:fontFamily="@font/poppins"
                             android:gravity="center_vertical"
                             android:padding="12dp"
-                            android:text="Add Brood to Weak Colony"
+                            android:text="Brood to Weak Colony"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 
@@ -347,7 +347,7 @@
                             android:fontFamily="@font/poppins"
                             android:gravity="center_vertical"
                             android:padding="12dp"
-                            android:text="Remove Brood to Weak Colony "
+                            android:text="Remove Brood to Strong Colony "
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 

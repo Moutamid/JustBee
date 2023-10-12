@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
-import com.moutamid.justbee.Constants;
+import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.ui.AddColonyActivity;
 import com.moutamid.justbee.ui.ManageLocationsActivity;
