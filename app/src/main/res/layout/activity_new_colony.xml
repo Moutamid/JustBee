@@ -14,9 +14,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,12 +28,13 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxStrokeColor="@color/stroke"
+                android:hint="Colony Name"
                 app:boxCornerRadiusBottomEnd="10sp"
                 app:boxCornerRadiusBottomStart="10sp"
                 app:boxCornerRadiusTopEnd="10sp"
                 app:boxCornerRadiusTopStart="10sp"
-                android:hint="Colony Name">
+                app:boxStrokeColor="@color/stroke"
+                app:hintTextColor="@color/green">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -47,14 +48,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:hint="Select Location"
                 app:boxCornerRadiusBottomEnd="10sp"
                 app:boxCornerRadiusBottomStart="10sp"
                 app:boxCornerRadiusTopEnd="10sp"
                 app:boxCornerRadiusTopStart="10sp"
-                android:layout_marginTop="10dp"
                 app:boxStrokeColor="@color/stroke"
-                app:hintEnabled="true">
+                app:hintEnabled="true"
+                app:hintTextColor="@color/green">
 
                 <AutoCompleteTextView
                     android:id="@+id/locationList"
@@ -67,13 +69,14 @@
                 android:id="@+id/honeyProduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxStrokeColor="@color/stroke"
+                android:layout_marginTop="10dp"
+                android:hint="Honey Production (Kg)"
                 app:boxCornerRadiusBottomEnd="10sp"
                 app:boxCornerRadiusBottomStart="10sp"
                 app:boxCornerRadiusTopEnd="10sp"
                 app:boxCornerRadiusTopStart="10sp"
-                android:layout_marginTop="10dp"
-                android:hint="Honey Production">
+                app:boxStrokeColor="@color/stroke"
+                app:hintTextColor="@color/green">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -85,11 +88,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center_vertical"
                 android:padding="12dp"
                 android:text="Queen Origin :"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -152,11 +155,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center_vertical"
                 android:padding="12dp"
                 android:text="Colony Origin :"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 

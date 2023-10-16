@@ -51,6 +51,7 @@
                 app:cardBackgroundColor="@color/grey"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
+                android:visibility="gone"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
