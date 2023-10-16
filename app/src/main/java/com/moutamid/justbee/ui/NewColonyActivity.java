@@ -106,6 +106,7 @@ public class NewColonyActivity extends AppCompatActivity {
         colonyModel.setTreatment(treat);
         colonyModel.setPests(diseases);
         colonyModel.setFeed(feed);
+        colonyModel.setColonyLoss("");
         colonyModel.setHoneyProduction(Double.parseDouble(binding.honeyProduction.getEditText().getText().toString()));
         colonyModel.setDate(new Date().getTime());
 

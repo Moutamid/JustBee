@@ -4,11 +4,11 @@ public class ColonyModel {
     String id, name, location, colonyOrigin, queenOrigin, feed, pests, Treatment, brood;
     long date;
     double honeyProduction;
-
+    String colonyLoss;
     public ColonyModel() {
     }
 
-    public ColonyModel(String id, String name, String location, String colonyOrigin, String queenOrigin, String feed, String pests, String treatment, String brood, long date, double honeyProduction) {
+    public ColonyModel(String id, String name, String location, String colonyOrigin, String queenOrigin, String feed, String pests, String treatment, String brood, long date, double honeyProduction, String colonyLoss) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -20,6 +20,15 @@ public class ColonyModel {
         this.brood = brood;
         this.date = date;
         this.honeyProduction = honeyProduction;
+        this.colonyLoss = colonyLoss;
+    }
+
+    public String getColonyLoss() {
+        return colonyLoss;
+    }
+
+    public void setColonyLoss(String colonyLoss) {
+        this.colonyLoss = colonyLoss;
     }
 
     public ColonyModel(String id, String name, String location, String colonyOrigin, long date) {

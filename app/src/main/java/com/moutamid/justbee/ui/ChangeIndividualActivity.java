@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.fxn.stash.Stash;
+import com.google.android.material.chip.Chip;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.databinding.ActivityChangeIndividualBinding;
 import com.moutamid.justbee.models.ColonyModel;
@@ -25,6 +26,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
     ArrayAdapter<String> idList;
     ArrayAdapter<String> lossList;
     List<String> loss;
+    String selectedID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +60,169 @@ public class ChangeIndividualActivity extends AppCompatActivity {
         binding.colonyIdLIst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedID = (String) parent.getItemAtPosition(position);
+                selectedID = (String) parent.getItemAtPosition(position);
                 updateUI(selectedID);
             }
         });
 
         binding.change.setOnClickListener(v -> {
+            if (Constants.types == Types.CHANGE_LOCATION) {
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setLocation(binding.location.getEditText().getText().toString());
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Location Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_FEED) {
+                String feed = "";
+                for (int i = 0; i < binding.feedChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.feedChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        feed += chip.getText().toString() + ", ";
+                    }
+                }
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setFeed(feed);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Feed Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_PEST) {
+                String diseases = "";
+                for (int i = 0; i < binding.diseasesChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.diseasesChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        diseases += chip.getText().toString() + ", ";
+                    }
+                }
 
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setPests(diseases);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Pest Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_TREAT) {
+                String treat = "";
+                for (int i = 0; i < binding.treatsChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.treatsChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        treat += chip.getText().toString() + ", ";
+                    }
+                }
+
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setTreatment(treat);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Treatment Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_NEW_QUEEN) {
+                String queenOrigin = "";
+                for (int i = 0; i < binding.queenSourceChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.queenSourceChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        queenOrigin = chip.getText().toString();
+                    }
+                }
+
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setQueenOrigin(queenOrigin);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Queen Origin Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_BROOD_ADD) {
+                String brood = "";
+                for (int i = 0; i < binding.addingBroodsChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.addingBroodsChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        brood = chip.getText().toString();
+                    }
+                }
+
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setBrood(brood);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Brood Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_BROOD_REMOVE) {
+                String brood = "";
+                for (int i = 0; i < binding.addingBroodsChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.addingBroodsChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        brood = chip.getText().toString();
+                    }
+                }
+
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setBrood(brood);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Brood Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_HONEY_PRODUCTION) {
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setHoneyProduction(Double.parseDouble(binding.honeyProduction.getEditText().getText().toString()));
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Honey Production Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_COLONY_ADD) {
+
+                String colonyOrigin = "";
+                for (int i = 0; i < binding.colonyOriginChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.colonyOriginChipGroup.getChildAt(i);
+                    if (chip.isChecked()) {
+                        colonyOrigin = chip.getText().toString();
+                    }
+                }
+
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setColonyOrigin(colonyOrigin);
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Colony Origin Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else if (Constants.types == Types.CHANGE_COLONY_REMOVE) {
+                ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+                for (ColonyModel model : colonyList) {
+                    if (model.getId().equals(selectedID)) {
+                        model.setColonyLoss(binding.colonyLoss.getEditText().getText().toString());
+                    }
+                }
+                Stash.put(Constants.COLONY, colonyList);
+                Toast.makeText(this, "Colony loss Changed", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }
         });
 
     }
@@ -82,35 +240,74 @@ public class ChangeIndividualActivity extends AppCompatActivity {
         }
 
         if (colonyModel != null) {
-
             if (Constants.types == Types.CHANGE_LOCATION) {
                 binding.location.getEditText().setText(colonyModel.getLocation());
             } else if (Constants.types == Types.CHANGE_FEED) {
-
+                String[] feedList = colonyModel.getFeed().split(", ");
+                for (String f : feedList) {
+                    for (int i = 0; i < binding.feedChipGroup.getChildCount(); i++) {
+                        Chip chip = (Chip) binding.feedChipGroup.getChildAt(i);
+                        if (f.equals(chip.getText().toString())) {
+                            chip.setChecked(true);
+                        }
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_PEST) {
-
-
+                String[] diseases = colonyModel.getPests().split(", ");
+                for (String f : diseases) {
+                    for (int i = 0; i < binding.diseasesChipGroup.getChildCount(); i++) {
+                        Chip chip = (Chip) binding.diseasesChipGroup.getChildAt(i);
+                        if (f.equals(chip.getText().toString())) {
+                            chip.setChecked(true);
+                        }
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_TREAT) {
-
-
+                String[] treat = colonyModel.getTreatment().split(", ");
+                for (String f : treat) {
+                    for (int i = 0; i < binding.treatsChipGroup.getChildCount(); i++) {
+                        Chip chip = (Chip) binding.treatsChipGroup.getChildAt(i);
+                        if (f.equals(chip.getText().toString())) {
+                            chip.setChecked(true);
+                        }
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_NEW_QUEEN) {
-
-
+                String queen = colonyModel.getQueenOrigin();
+                for (int i = 0; i < binding.queenSourceChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.queenSourceChipGroup.getChildAt(i);
+                    if (queen.equals(chip.getText().toString())) {
+                        chip.setChecked(true);
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_BROOD_ADD) {
-
-
+                String brood = colonyModel.getBrood();
+                for (int i = 0; i < binding.addingBroodsChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.addingBroodsChipGroup.getChildAt(i);
+                    if (brood.equals(chip.getText().toString())) {
+                        chip.setChecked(true);
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_BROOD_REMOVE) {
-
-
+                String brood = colonyModel.getBrood();
+                for (int i = 0; i < binding.removingBroodsChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.removingBroodsChipGroup.getChildAt(i);
+                    if (brood.equals(chip.getText().toString())) {
+                        chip.setChecked(true);
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_HONEY_PRODUCTION) {
-
-
+                binding.honeyProduction.getEditText().setText(colonyModel.getHoneyProduction() + "");
             } else if (Constants.types == Types.CHANGE_COLONY_ADD) {
-
-
+                String origin = colonyModel.getColonyOrigin();
+                for (int i = 0; i < binding.colonyOriginChipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) binding.colonyOriginChipGroup.getChildAt(i);
+                    if (origin.equals(chip.getText().toString())) {
+                        chip.setChecked(true);
+                    }
+                }
             } else if (Constants.types == Types.CHANGE_COLONY_REMOVE) {
-
-
+                binding.colonyLoss.getEditText().setText(colonyModel.getColonyLoss());
             }
         }
     }
