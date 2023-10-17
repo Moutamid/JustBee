@@ -15,6 +15,7 @@ import com.moutamid.justbee.models.ColonyModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class NewColonyActivity extends AppCompatActivity {
@@ -96,8 +97,11 @@ public class NewColonyActivity extends AppCompatActivity {
                 feed += chip.getText().toString() + ", ";
             }
         }
-
-        colonyModel.setId(UUID.randomUUID().toString());
+        Random random = new Random();
+        int min = 000000;
+        int max = 999999;
+        int random6DigitNumber = random.nextInt(max - min + 1) + min;
+        colonyModel.setId(String.valueOf(random6DigitNumber));
         colonyModel.setName(binding.name.getEditText().getText().toString());
         colonyModel.setLocation(binding.location.getEditText().getText().toString());
         colonyModel.setQueenOrigin(queenOrigin);

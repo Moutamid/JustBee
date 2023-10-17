@@ -9,4 +9,6 @@
     <color name="background">#F6F9FF</color>
     <color name="grey">#F2F2F2</color>
     <color name="stroke">#79222222</color>
+    <color name="table_row1">#CFD5EA</color>
+    <color name="table_row2">#E9EBF5</color>
 </resources>
