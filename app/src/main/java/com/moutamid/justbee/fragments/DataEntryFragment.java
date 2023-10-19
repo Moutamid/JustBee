@@ -22,6 +22,12 @@ public class DataEntryFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Constants.initDialog(requireContext());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentDataEntryBinding.inflate(getLayoutInflater() , container, false);

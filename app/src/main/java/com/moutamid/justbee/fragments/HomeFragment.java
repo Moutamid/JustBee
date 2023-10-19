@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.moutamid.justbee.R;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.databinding.FragmentHomeBinding;
 import com.moutamid.justbee.models.ColonyModel;
@@ -31,20 +32,26 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Constants.initDialog(requireContext());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater(), container, false);
 
         List<BarEntry> barEntries = new ArrayList<>();
 
-        ArrayList<String> locationList = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
+        ArrayList<LocationModel> locationList = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
         ArrayList<ColonyModel> coloniesList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
 
         for (int i = 0; i < locationList.size(); i++) {
             // Count how many colonies are in the specific location
             int coloniesCount = 0;
             for (ColonyModel colony : coloniesList) {
-                if (colony.getLocation().equals(locationList.get(i))) {
+                if (colony.getLocation().equals(locationList.get(i).getName())) {
                     coloniesCount++;
                 }
             }
@@ -63,7 +70,7 @@ public class HomeFragment extends Fragment {
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return locationList.get((int) value);
+                return locationList.get((int) value).getName();
             }
         });
 

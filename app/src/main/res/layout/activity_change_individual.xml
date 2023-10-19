@@ -158,6 +158,30 @@
                     android:textSize="16sp"
                     app:checkedIconEnabled="true" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/boardman"
+                    style="@style/Theme.ChipsColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="Boardman"
+                    android:textSize="16sp"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/topFeeder"
+                    style="@style/Theme.ChipsColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="Top Feeder"
+                    android:textSize="16sp"
+                    app:checkedIconEnabled="true" />
+
             </com.google.android.material.chip.ChipGroup>
 
         </LinearLayout>
@@ -478,6 +502,18 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="Local"
+                    android:textSize="16sp"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/OtherChip"
+                    style="@style/Theme.ChipsColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="Other"
                     android:textSize="16sp"
                     app:checkedIconEnabled="true" />
 

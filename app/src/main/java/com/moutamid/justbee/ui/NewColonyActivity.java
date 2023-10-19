@@ -21,28 +21,34 @@ import java.util.UUID;
 public class NewColonyActivity extends AppCompatActivity {
     ActivityNewColonyBinding binding;
     ArrayList<ColonyModel> colonyList;
-    ArrayAdapter<String> locList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNewColonyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Constants.initDialog(this);
+
         binding.toolbar.back.setOnClickListener(v -> onBackPressed());
         binding.toolbar.title.setText("Add New Colony");
 
         colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
 
-        List<String> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
-        locList = new ArrayAdapter<>(NewColonyActivity.this, android.R.layout.simple_spinner_dropdown_item, loc);
-        binding.locationList.setAdapter(locList);
-
         binding.add.setOnClickListener(v -> {
+            Constants.showDialog();
             ColonyModel colonyModel = getColonyData();
-            colonyList.add(colonyModel);
-            Stash.put(Constants.COLONY, colonyList);
-            Toast.makeText(this, "Colony Added", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            Constants.databaseReference().child(Constants.COLONY).child(colonyModel.getId()).setValue(colonyModel)
+                    .addOnSuccessListener(unused -> {
+                        Constants.dismissDialog();
+                        colonyList.add(colonyModel);
+                        Stash.put(Constants.COLONY, colonyList);
+                        Toast.makeText(this, "Colony Added", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }).addOnFailureListener(e -> {
+                        Constants.dismissDialog();
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
 
     }
@@ -66,52 +72,21 @@ public class NewColonyActivity extends AppCompatActivity {
             }
         }
 
-        String brood = "";
-        for (int i = 0; i < binding.addingBroodsChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) binding.addingBroodsChipGroup.getChildAt(i);
-            if (chip.isChecked()) {
-                brood = chip.getText().toString();
-            }
-        }
-
-        String treat = "";
-        for (int i = 0; i < binding.treatsChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) binding.treatsChipGroup.getChildAt(i);
-            if (chip.isChecked()) {
-                treat += chip.getText().toString() + ", ";
-            }
-        }
-
-        String diseases = "";
-        for (int i = 0; i < binding.diseasesChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) binding.diseasesChipGroup.getChildAt(i);
-            if (chip.isChecked()) {
-                diseases += chip.getText().toString() + ", ";
-            }
-        }
-
-        String feed = "";
-        for (int i = 0; i < binding.feedChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) binding.feedChipGroup.getChildAt(i);
-            if (chip.isChecked()) {
-                feed += chip.getText().toString() + ", ";
-            }
-        }
         Random random = new Random();
         int min = 000000;
         int max = 999999;
         int random6DigitNumber = random.nextInt(max - min + 1) + min;
         colonyModel.setId(String.valueOf(random6DigitNumber));
         colonyModel.setName(binding.name.getEditText().getText().toString());
-        colonyModel.setLocation(binding.location.getEditText().getText().toString());
+        colonyModel.setLocation("");
         colonyModel.setQueenOrigin(queenOrigin);
         colonyModel.setColonyOrigin(colonyOrigin);
-        colonyModel.setBrood(brood);
-        colonyModel.setTreatment(treat);
-        colonyModel.setPests(diseases);
-        colonyModel.setFeed(feed);
+        colonyModel.setBrood("");
+        colonyModel.setTreatment("");
+        colonyModel.setPests("");
+        colonyModel.setFeed("");
         colonyModel.setColonyLoss("");
-        colonyModel.setHoneyProduction(Double.parseDouble(binding.honeyProduction.getEditText().getText().toString()));
+        colonyModel.setHoneyProduction(0);
         colonyModel.setDate(new Date().getTime());
 
         return colonyModel;

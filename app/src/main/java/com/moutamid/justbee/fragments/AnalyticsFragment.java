@@ -149,14 +149,7 @@ public class AnalyticsFragment extends Fragment {
 
         // Iterate through the colonyList and group colonies by location
         for (ColonyModel colony : colonyList) {
-
-            String loss;
-            if (colony.getColonyLoss() != null){
-                loss = colony.getColonyLoss().isEmpty() ? "No Loss" : colony.getColonyLoss();
-            } else {
-                loss = "No Loss";
-            }
-
+            String loss = colony.getColonyLoss().isEmpty() ? "No Loss" : colony.getColonyLoss();
             if (!locationMap.containsKey(loss)) {
                 locationMap.put(loss, new ArrayList<>());
             }
@@ -182,6 +175,7 @@ public class AnalyticsFragment extends Fragment {
         // Iterate through the colonyList and group colonies by location
         for (ColonyModel colony : colonyList) {
             String location = colony.getPests().replaceAll("[,\\s]+$", "");
+            location = location.isEmpty() ? "No Pest" : location;
             if (!locationMap.containsKey(location)) {
                 locationMap.put(location, new ArrayList<>());
             }
@@ -191,7 +185,6 @@ public class AnalyticsFragment extends Fragment {
         for (Map.Entry<String, ArrayList<ColonyModel>> entry : locationMap.entrySet()) {
             String location = entry.getKey();
             ArrayList<ColonyModel> coloniesInLocation = entry.getValue();
-
             locationList.add(new QueenPerformance(location, String.valueOf(coloniesInLocation.size())));
         }
 
@@ -255,7 +248,9 @@ public class AnalyticsFragment extends Fragment {
             model.setQueenSource("Queens from " + location);
 
             for (ColonyModel colony : coloniesInLocation) {
-                subList.add(new QueenPerformance(colony.getId(), colony.getPests().replaceAll("[,\\s]+$", "")));
+                String pest = colony.getPests().replaceAll("[,\\s]+$", "");
+                String dd = pest.isEmpty() ? "No Pest" : pest;
+                subList.add(new QueenPerformance(colony.getId(), dd));
                 model.setList(subList);
             }
 
@@ -349,5 +344,11 @@ public class AnalyticsFragment extends Fragment {
         }
 
         return queenSourceList;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Constants.initDialog(requireContext());
     }
 }

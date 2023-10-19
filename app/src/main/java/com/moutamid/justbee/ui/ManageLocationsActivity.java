@@ -19,15 +19,21 @@ import android.widget.Toast;
 import com.fxn.stash.Stash;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.databinding.ActivityManageLocationsBinding;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.UUID;
 
 public class ManageLocationsActivity extends AppCompatActivity {
     ActivityManageLocationsBinding binding;
-    ArrayList<String> locations;
+    ArrayList<LocationModel> locations;
     LocationAdapter adapter;
 
     @Override
@@ -36,24 +42,48 @@ public class ManageLocationsActivity extends AppCompatActivity {
         binding = ActivityManageLocationsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Constants.initDialog(this);
+
         binding.toolbar.back.setOnClickListener(v -> onBackPressed());
         binding.toolbar.title.setText("Manage Locations");
 
-        locations = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
+        locations = new ArrayList<>();
 
         binding.counter.setText("Total Locations : " + locations.size() + "/40");
 
         binding.locRC.setHasFixedSize(false);
         binding.locRC.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new LocationAdapter(locations);
-        binding.locRC.setAdapter(adapter);
+        Constants.showDialog();
+        Constants.databaseReference().child(Constants.LOCATIONS_LIST)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            locations.clear();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                LocationModel model = dataSnapshot.getValue(LocationModel.class);
+                                locations.add(model);
+                            }
+
+                            locations.sort(Comparator.comparing(LocationModel::getName));
+                            binding.counter.setText("Total Locations : " + locations.size() + "/40");
+                            adapter = new LocationAdapter(locations);
+                            binding.locRC.setAdapter(adapter);
+                            Stash.put(Constants.LOCATIONS_LIST, locations);
+                        }
+                        Constants.dismissDialog();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Constants.dismissDialog();
+                        Toast.makeText(ManageLocationsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         binding.add.setOnClickListener(v -> {
-            if (locations.size() < 40)
-                showDialog();
-            else
-                Toast.makeText(this, "You can only add locations up-to 40", Toast.LENGTH_SHORT).show();
+            showDialog();
         });
 
     }
@@ -76,23 +106,26 @@ public class ManageLocationsActivity extends AppCompatActivity {
                 name.setError("Name is Empty");
             } else {
                 dialog.dismiss();
-                locations.add(name.getEditText().getText().toString());
-                update();
-                Stash.put(Constants.LOCATIONS_LIST, locations);
+                Constants.showDialog();
+                String id = UUID.randomUUID().toString();
+                LocationModel loc = new LocationModel(id, name.getEditText().getText().toString());
+                Constants.databaseReference().child(Constants.LOCATIONS_LIST).child(id).setValue(loc)
+                                .addOnSuccessListener(unused -> {
+                                    Constants.dismissDialog();
+                                    Toast.makeText(this, "Location Added", Toast.LENGTH_SHORT).show();
+                                }).addOnFailureListener(e -> {
+                            Constants.dismissDialog();
+                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
             }
         });
 
     }
 
-    private void update() {
-        binding.counter.setText("Total Locations : " + locations.size() + "/40");
-        adapter.notifyDataSetChanged();
-    }
-
     private class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationVH> {
-        ArrayList<String> locations;
+        ArrayList<LocationModel> locations;
 
-        public LocationAdapter(ArrayList<String> locations) {
+        public LocationAdapter(ArrayList<LocationModel> locations) {
             this.locations = locations;
         }
 
@@ -104,15 +137,16 @@ public class ManageLocationsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull LocationVH holder, int position) {
-            String name = locations.get(holder.getAdapterPosition());
-            holder.name.setText(name);
+            LocationModel name = locations.get(holder.getAdapterPosition());
+            holder.name.setText(name.getName());
 
             holder.remove.setOnClickListener(v -> {
-                locations.remove(name);
-                ManageLocationsActivity.this.locations.remove(name);
-                Stash.put(Constants.LOCATIONS_LIST, locations);
-                notifyItemRemoved(holder.getAdapterPosition());
-                ManageLocationsActivity.this.update();
+                Constants.databaseReference().child(Constants.LOCATIONS_LIST).child(name.getID()).removeValue()
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(ManageLocationsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }).addOnSuccessListener(unused -> {
+                            Toast.makeText(ManageLocationsActivity.this, "Location Removed", Toast.LENGTH_SHORT).show();
+                        });
             });
         }
 

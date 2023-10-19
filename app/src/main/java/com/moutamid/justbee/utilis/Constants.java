@@ -1,5 +1,7 @@
 package com.moutamid.justbee.utilis;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.moutamid.justbee.R;
 
 import android.app.Activity;
@@ -59,7 +61,7 @@ public class Constants {
     }
 
     public static void checkApp(Activity activity) {
-        String appName = "onlineStore";
+        String appName = "justBee";
 
         new Thread(() -> {
             URL google = null;
@@ -116,19 +118,11 @@ public class Constants {
 
         }).start();
     }
-/*    public static FirebaseAuth auth() {
-        return FirebaseAuth.getInstance();
-    }
 
     public static DatabaseReference databaseReference() {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("onlineStore");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("justBee");
         db.keepSynced(true);
         return db;
     }
-
-    public static StorageReference storageReference(String auth) {
-        StorageReference sr = FirebaseStorage.getInstance().getReference().child("onlineStore").child(auth);
-        return sr;
-    }*/
 
 }

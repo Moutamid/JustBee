@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fxn.stash.Stash;
 import com.google.android.material.button.MaterialButton;
@@ -24,6 +25,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.databinding.ActivityAddColonyBinding;
@@ -38,7 +43,6 @@ import java.util.UUID;
 public class AddColonyActivity extends AppCompatActivity {
     ActivityAddColonyBinding binding;
     ArrayList<ColonyModel> colonyList;
-    ArrayAdapter<String> locList;
     ColonyAdapter adapter;
 
     @Override
@@ -46,76 +50,49 @@ public class AddColonyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddColonyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.initDialog(this);
 
-        binding.toolbar.back.setOnClickListener(v -> onBackPressed());
-        binding.toolbar.title.setText("Colony List");
-
-    }
-
-    private void init() {
-        colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+        colonyList = new ArrayList<>();
         binding.counter.setText("Total Colony : " + colonyList.size());
 
-//        binding.add.setOnClickListener(v -> showDialog());
         binding.add.setOnClickListener(v -> startActivity(new Intent(this, NewColonyActivity.class)));
 
         binding.colonyRC.setHasFixedSize(false);
         binding.colonyRC.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ColonyAdapter(colonyList);
-        binding.colonyRC.setAdapter(adapter);
-    }
+        Constants.showDialog();
+        Constants.databaseReference().child(Constants.COLONY)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Constants.dismissDialog();
+                                if (snapshot.exists()) {
+                                    colonyList.clear();
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                        ColonyModel model = dataSnapshot.getValue(ColonyModel.class);
+                                        colonyList.add(model);
+                                    }
+                                    adapter = new ColonyAdapter(colonyList);
+                                    binding.colonyRC.setAdapter(adapter);
+                                    Stash.put(Constants.COLONY, colonyList);
+                                    binding.counter.setText("Total Colony : " + colonyList.size());
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Constants.dismissDialog();
+                                Toast.makeText(AddColonyActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+        binding.toolbar.back.setOnClickListener(v -> onBackPressed());
+        binding.toolbar.title.setText("Colony List");
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        init();
-    }
-
-    private void showDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.add_colony);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(true);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-
-        MaterialButton add = dialog.findViewById(R.id.add);
-        TextInputLayout name = dialog.findViewById(R.id.name);
-        TextInputLayout location = dialog.findViewById(R.id.location);
-        AutoCompleteTextView locationList = dialog.findViewById(R.id.locationList);
-        ChipGroup colonyOriginChipGroup = dialog.findViewById(R.id.colonyOriginChipGroup);
-
-        List<String> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
-        locList = new ArrayAdapter<>(AddColonyActivity.this, android.R.layout.simple_spinner_dropdown_item, loc);
-        locationList.setAdapter(locList);
-
-        add.setOnClickListener(v -> {
-            String diseases = "";
-            for (int i = 0; i < colonyOriginChipGroup.getChildCount(); i++) {
-                Chip chip = (Chip) colonyOriginChipGroup.getChildAt(i);
-                if (chip.isChecked()) {
-                    diseases = chip.getText().toString();
-                }
-            }
-            ColonyModel colonyModel = new ColonyModel(UUID.randomUUID().toString(),
-                    name.getEditText().getText().toString(),
-                    location.getEditText().getText().toString(),
-                    diseases,
-                    new Date().getTime()
-            );
-            colonyList.add(colonyModel);
-            Stash.put(Constants.COLONY, colonyList);
-            dialog.dismiss();
-            update();
-        });
-
-    }
-
-    private void update() {
-        binding.counter.setText("Total Colony : " + colonyList.size());
-        adapter.notifyDataSetChanged();
     }
 
     private class ColonyAdapter extends RecyclerView.Adapter<ColonyAdapter.ColonyVH> {
@@ -143,11 +120,12 @@ public class AddColonyActivity extends AppCompatActivity {
             holder.date.setText(date);
 
             holder.delete.setOnClickListener(v -> {
-                list.remove(model);
-                AddColonyActivity.this.colonyList.remove(model);
-                Stash.put(Constants.COLONY, list);
-                notifyItemRemoved(holder.getAdapterPosition());
-                AddColonyActivity.this.update();
+                Constants.databaseReference().child(Constants.COLONY).child(model.getId())
+                        .removeValue().addOnFailureListener(e -> {
+                            Toast.makeText(AddColonyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }).addOnSuccessListener(unused -> {
+                            Toast.makeText(AddColonyActivity.this, "Colony Removed", Toast.LENGTH_SHORT).show();
+                        });
             });
         }
 

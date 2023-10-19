@@ -11,6 +11,7 @@ import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputLayout;
 import com.moutamid.justbee.models.ColonyModel;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.utilis.Types;
 import com.moutamid.justbee.databinding.ActivityChangeAllBinding;
@@ -28,6 +29,8 @@ public class ChangeAllActivity extends AppCompatActivity {
         binding = ActivityChangeAllBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Constants.initDialog(this);
+
         binding.toolbar.back.setOnClickListener(v -> onBackPressed());
         binding.toolbar.title.setText(Constants.ACTIVITY_NAME);
 
@@ -39,8 +42,13 @@ public class ChangeAllActivity extends AppCompatActivity {
             treatUI();
         }
 
-        List<String> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
-        locList = new ArrayAdapter<>(ChangeAllActivity.this, android.R.layout.simple_spinner_dropdown_item, loc);
+        List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+        List<String> locc = new ArrayList<>();
+
+        for (LocationModel l : loc){
+            locc.add(l.getName());
+        }
+        locList = new ArrayAdapter<>(ChangeAllActivity.this, android.R.layout.simple_spinner_dropdown_item, locc);
         binding.locationListCurrent.setAdapter(locList);
         binding.locationListCurrentFeed.setAdapter(locList);
         binding.locationListCurrentTreat.setAdapter(locList);
@@ -54,6 +62,7 @@ public class ChangeAllActivity extends AppCompatActivity {
 
     private void changeTreat() {
         if (locationValid() && treatValid()) {
+            Constants.showDialog();
             String treat = getTreat();
             ArrayList<ColonyModel>  colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
             for (ColonyModel model : colonyList) {
@@ -61,9 +70,19 @@ public class ChangeAllActivity extends AppCompatActivity {
                     model.setTreatment(treat);
                 }
             }
-            Stash.put(Constants.COLONY, colonyList);
-            Toast.makeText(this, "Treatments Changed", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+
+            for (ColonyModel model : colonyList) {
+                Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
+                        .addOnSuccessListener(unused -> {
+                            Constants.dismissDialog();
+                            Stash.put(Constants.COLONY, colonyList);
+                            Toast.makeText(this, "Treatments Changed", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }).addOnFailureListener(e -> {
+                            Constants.dismissDialog();
+                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            }
         }
     }
 
@@ -87,9 +106,18 @@ public class ChangeAllActivity extends AppCompatActivity {
                     model.setFeed(feed);
                 }
             }
-            Stash.put(Constants.COLONY, colonyList);
-            Toast.makeText(this, "Feed Changed", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            for (ColonyModel model : colonyList) {
+                Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
+                        .addOnSuccessListener(unused -> {
+                            Constants.dismissDialog();
+                            Stash.put(Constants.COLONY, colonyList);
+                            Toast.makeText(this, "Feed Changed", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }).addOnFailureListener(e -> {
+                            Constants.dismissDialog();
+                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            }
         }
     }
 
@@ -113,9 +141,18 @@ public class ChangeAllActivity extends AppCompatActivity {
                     model.setLocation(binding.locationNew.getEditText().getText().toString());
                 }
             }
-            Stash.put(Constants.COLONY, colonyList);
-            Toast.makeText(this, "Location Changed", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            for (ColonyModel model : colonyList) {
+                Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
+                        .addOnSuccessListener(unused -> {
+                            Constants.dismissDialog();
+                            Stash.put(Constants.COLONY, colonyList);
+                            Toast.makeText(this, "Location Changed", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }).addOnFailureListener(e -> {
+                            Constants.dismissDialog();
+                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            }
         }
     }
 
@@ -136,9 +173,9 @@ public class ChangeAllActivity extends AppCompatActivity {
             return false;
         } else {
             boolean pass = false;
-            List<String> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
-            for (String s : loc) {
-                if (s.equalsIgnoreCase(locationCurrent.getEditText().getText().toString())) {
+            List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+            for (LocationModel s : loc) {
+                if (s.getName().equalsIgnoreCase(locationCurrent.getEditText().getText().toString())) {
                     pass = true;
                     break;
                 }
@@ -190,9 +227,9 @@ public class ChangeAllActivity extends AppCompatActivity {
             return false;
         } else {
             boolean pass = false;
-            List<String> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, String.class);
-            for (String s : loc) {
-                if (s.equalsIgnoreCase(binding.locationNew.getEditText().getText().toString())) {
+            List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+            for (LocationModel s : loc) {
+                if (s.getName().equalsIgnoreCase(binding.locationNew.getEditText().getText().toString())) {
                     pass = true;
                     break;
                 }
