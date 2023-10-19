@@ -11,12 +11,14 @@ import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputLayout;
 import com.moutamid.justbee.models.ColonyModel;
+import com.moutamid.justbee.models.HistoryModel;
 import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.utilis.Types;
 import com.moutamid.justbee.databinding.ActivityChangeAllBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChangeAllActivity extends AppCompatActivity {
@@ -75,6 +77,12 @@ public class ChangeAllActivity extends AppCompatActivity {
                 Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
                         .addOnSuccessListener(unused -> {
                             Constants.dismissDialog();
+
+                            String time = Constants.getFormattedDate(new Date().getTime());
+                            String event = "Change all colonies treatment at " + binding.locationCurrent.getEditText().getText().toString() + " to " + treat;
+                            HistoryModel history = new HistoryModel(model.getId(), time, event);
+                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).push().setValue(history);
+
                             Stash.put(Constants.COLONY, colonyList);
                             Toast.makeText(this, "Treatments Changed", Toast.LENGTH_SHORT).show();
                             onBackPressed();
@@ -110,6 +118,12 @@ public class ChangeAllActivity extends AppCompatActivity {
                 Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
                         .addOnSuccessListener(unused -> {
                             Constants.dismissDialog();
+
+                            String time = Constants.getFormattedDate(new Date().getTime());
+                            String event = "Change all colonies feed at " + binding.locationCurrent.getEditText().getText().toString() + " to " + feed;
+                            HistoryModel history = new HistoryModel(model.getId(), time, event);
+                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).push().setValue(history);
+
                             Stash.put(Constants.COLONY, colonyList);
                             Toast.makeText(this, "Feed Changed", Toast.LENGTH_SHORT).show();
                             onBackPressed();
@@ -145,6 +159,12 @@ public class ChangeAllActivity extends AppCompatActivity {
                 Constants.databaseReference().child(Constants.COLONY).child(model.getId()).setValue(model)
                         .addOnSuccessListener(unused -> {
                             Constants.dismissDialog();
+
+                            String time = Constants.getFormattedDate(new Date().getTime());
+                            String event = "Change All Colonies Location " + binding.locationCurrent.getEditText().getText().toString() + " to " + binding.locationNew.getEditText().getText().toString();
+                            HistoryModel history = new HistoryModel(model.getId(), time, event);
+                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).push().setValue(history);
+
                             Stash.put(Constants.COLONY, colonyList);
                             Toast.makeText(this, "Location Changed", Toast.LENGTH_SHORT).show();
                             onBackPressed();

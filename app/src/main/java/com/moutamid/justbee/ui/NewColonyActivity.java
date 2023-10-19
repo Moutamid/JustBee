@@ -41,7 +41,7 @@ public class NewColonyActivity extends AppCompatActivity {
             ColonyModel colonyModel = getColonyData();
             Constants.databaseReference().child(Constants.COLONY).child(colonyModel.getId()).setValue(colonyModel)
                     .addOnSuccessListener(unused -> {
-                        String date = Constants.getFormattedDate(colonyModel.getDate());
+                        String date = Constants.getFormattedDate(new Date().getTime());
                         String event = "Added " + colonyModel.getName() + " " + colonyModel.getQueenOrigin() + ", " + colonyModel.getColonyOrigin();
                         HistoryModel history = new HistoryModel(colonyModel.getId(), date, event);
                         Constants.databaseReference().child(Constants.ColonyAnalysis).child(colonyModel.getId()).push().setValue(history);
