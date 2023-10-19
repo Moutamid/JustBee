@@ -37,9 +37,6 @@ android {
 }
 
 dependencies {
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.fxn769:stash:1.3.2")
 
     implementation("androidx.appcompat:appcompat:1.6.1")

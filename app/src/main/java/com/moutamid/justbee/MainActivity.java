@@ -17,14 +17,17 @@ import com.moutamid.justbee.fragments.AnalyticsFragment;
 import com.moutamid.justbee.fragments.DataEntryFragment;
 import com.moutamid.justbee.fragments.HomeFragment;
 import com.moutamid.justbee.models.ColonyModel;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.ui.AddColonyActivity;
 import com.moutamid.justbee.utilis.Constants;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     ActivityMainBinding binding;
     ArrayList<ColonyModel> colonyList;
+    ArrayList<LocationModel> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         binding.bottomNav.setOnNavigationItemSelectedListener(this);
 
         colonyList = new ArrayList<>();
+        locations = new ArrayList<>();
 
         Constants.showDialog();
         Constants.databaseReference().child(Constants.COLONY)
                 .get()
                 .addOnSuccessListener(dataSnapshot -> {
-                    Constants.dismissDialog();
+
                     if (dataSnapshot.exists()) {
                         colonyList.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -51,15 +55,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             colonyList.add(model);
                         }
                         Stash.put(Constants.COLONY, colonyList);
-                        binding.bottomNav.setSelectedItemId(R.id.nav_home);
-                    } else {
-                        binding.bottomNav.setSelectedItemId(R.id.nav_home);
                     }
+
+                    Constants.databaseReference().child(Constants.LOCATIONS_LIST)
+                            .get().addOnFailureListener(error -> {
+                                Constants.dismissDialog();
+                                binding.bottomNav.setSelectedItemId(R.id.nav_home);
+                                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }).addOnSuccessListener(dataSnapshot1 -> {
+                                Constants.dismissDialog();
+                                if (dataSnapshot1.exists()) {
+                                    locations.clear();
+                                    for (DataSnapshot dataSnapshot22 : dataSnapshot1.getChildren()){
+                                        LocationModel model = dataSnapshot22.getValue(LocationModel.class);
+                                        locations.add(model);
+                                    }
+                                    locations.sort(Comparator.comparing(LocationModel::getName));
+                                    Stash.put(Constants.LOCATIONS_LIST, locations);
+                                }
+                                binding.bottomNav.setSelectedItemId(R.id.nav_home);
+                            });
+
                 }).addOnFailureListener(error -> {
                     Constants.dismissDialog();
+                    binding.bottomNav.setSelectedItemId(R.id.nav_home);
                     Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-
     }
 
     @Override

@@ -1,32 +1,30 @@
 package com.moutamid.justbee.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.fxn.stash.Stash;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.moutamid.justbee.R;
+import com.moutamid.justbee.adapters.TableAdapter;
+import com.moutamid.justbee.models.ColonyModel;
 import com.moutamid.justbee.models.LocationModel;
+import com.moutamid.justbee.models.QueenPerformance;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.databinding.FragmentHomeBinding;
-import com.moutamid.justbee.models.ColonyModel;
-import com.moutamid.justbee.utilis.LocationAxisValueFormatter;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
+    TableAdapter adapter;
+    ArrayList<QueenPerformance> table;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -42,44 +40,41 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater(), container, false);
 
-        List<BarEntry> barEntries = new ArrayList<>();
+        table = getTableData();
+        int count = 0;
+        for (QueenPerformance tt : table){
+            count += Integer.parseInt(tt.getColumn2());
+        }
+        binding.total.setText(count+"");
+        binding.LocationRC.setHasFixedSize(false);
+        binding.LocationRC.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        adapter = new TableAdapter(requireContext(), table);
+        binding.LocationRC.setAdapter(adapter);
+
+        return binding.getRoot();
+    }
+
+    private ArrayList<QueenPerformance> getTableData() {
+        ArrayList<QueenPerformance> list  = new ArrayList<>();
         ArrayList<LocationModel> locationList = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
         ArrayList<ColonyModel> coloniesList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
 
-        for (int i = 0; i < locationList.size(); i++) {
-            // Count how many colonies are in the specific location
-            int coloniesCount = 0;
-            for (ColonyModel colony : coloniesList) {
-                if (colony.getLocation().equals(locationList.get(i).getName())) {
-                    coloniesCount++;
-                }
-            }
-            barEntries.add(new BarEntry(i, coloniesCount));
+        Map<String, Integer> locationColonyCount = new HashMap<>();
+
+        // Initialize the count for each location to 0
+        for (LocationModel location : locationList) {
+            locationColonyCount.put(location.getName(), 0);
+        }
+        for (ColonyModel colony : coloniesList) {
+            String colonyLocation = colony.getLocation();
+            locationColonyCount.put(colonyLocation, locationColonyCount.get(colonyLocation) + 1);
         }
 
-        // Create a BarDataSet
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Colony Count");
-        barDataSet.setColor(getResources().getColor(R.color.green));
+        for (LocationModel location : locationList) {
+            list.add(new QueenPerformance(location.getName(), String.valueOf(locationColonyCount.get(location.getName()))));
+        }
 
-        // Create a BarData and set the BarDataSet
-        BarData barData = new BarData(barDataSet);
-
-        // Set custom labels for the x-axis
-        XAxis xAxis = binding.colonyBC.getXAxis();
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return locationList.get((int) value).getName();
-            }
-        });
-
-        binding.colonyBC.setData(barData);
-        binding.colonyBC.setHorizontalScrollBarEnabled(true);
-//        xAxis.setScrollable(true);
-        binding.colonyBC.setFitBars(true);
-        binding.colonyBC.invalidate();
-
-        return binding.getRoot();
+        return list;
     }
 }
