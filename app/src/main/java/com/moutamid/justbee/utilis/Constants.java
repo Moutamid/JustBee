@@ -27,21 +27,15 @@ import java.util.Locale;
 public class Constants {
 
     static Dialog dialog;
-    public static final String DATEFORMATE = "dd/MM/yyyy";
-    public static final String QUEEN_SOURCE = "QUEEN_SOURCE";
-    public static final String FEED_LIST = "FEED_LIST";
-    public static final String TREAT_LIST = "TREAT_LIST";
-    public static final String DISEASES_LIST = "DISEASES_LIST";
-    public static final String BROOD_REMOVE = "BROOD_REMOVE";
-    public static final String BROOD_ADD = "BROOD_ADD";
+    public static final String DATE_FORMAT = "MMM dd, yyyy";
     public static final String LOCATIONS_LIST = "LOCATIONS_LIST";
-    public static final String COLONY_LOSS = "COLONY_LOSS";
     public static final String COLONY = "COLONY";
     public static String ACTIVITY_NAME = "ACTIVITY_NAME";
+    public static String ColonyAnalysis = "ColonyAnalysis";
     public static Types types = Types.NULL;
 
-    public static String getFormatedDate(long date){
-        return new SimpleDateFormat(DATEFORMATE, Locale.getDefault()).format(date);
+    public static String getFormattedDate(long date){
+        return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(date);
     }
 
     public static void initDialog(Context context){

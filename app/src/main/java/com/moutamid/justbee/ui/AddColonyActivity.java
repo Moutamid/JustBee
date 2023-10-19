@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.moutamid.justbee.models.HistoryModel;
 import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.R;
@@ -116,7 +117,7 @@ public class AddColonyActivity extends AppCompatActivity {
             holder.origin.setText(model.getColonyOrigin());
             holder.ID.setText(model.getId());
 
-            String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(model.getDate());
+            String date = Constants.getFormattedDate(model.getDate());
             holder.date.setText(date);
 
             holder.delete.setOnClickListener(v -> {
@@ -124,6 +125,10 @@ public class AddColonyActivity extends AppCompatActivity {
                         .removeValue().addOnFailureListener(e -> {
                             Toast.makeText(AddColonyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }).addOnSuccessListener(unused -> {
+                            String time = Constants.getFormattedDate(model.getDate());
+                            String event = "Removed " + model.getName() + ", " + model.getQueenOrigin() + ", " + model.getColonyOrigin();
+                            HistoryModel history = new HistoryModel(model.getId(), time, event);
+                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).push().setValue(history);
                             Toast.makeText(AddColonyActivity.this, "Colony Removed", Toast.LENGTH_SHORT).show();
                         });
             });

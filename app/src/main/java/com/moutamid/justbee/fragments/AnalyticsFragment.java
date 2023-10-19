@@ -1,5 +1,6 @@
 package com.moutamid.justbee.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.moutamid.justbee.databinding.FragmentAnalyticsBinding;
 import com.moutamid.justbee.models.ColonyModel;
 import com.moutamid.justbee.models.QueenPerformance;
 import com.moutamid.justbee.models.QueenSourceModel;
+import com.moutamid.justbee.ui.ColonyAnalysisActivity;
 import com.moutamid.justbee.utilis.Constants;
 
 import java.util.ArrayList;
@@ -41,6 +43,8 @@ public class AnalyticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAnalyticsBinding.inflate(getLayoutInflater(), container, false);
+
+        binding.colony.setOnClickListener(v -> startActivity(new Intent(requireContext(), ColonyAnalysisActivity.class)));
 
         binding.queenSourceRC.setHasFixedSize(false);
         binding.queenSourceRC.setLayoutManager(new LinearLayoutManager(requireContext()));

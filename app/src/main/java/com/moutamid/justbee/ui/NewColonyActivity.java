@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
+import com.moutamid.justbee.models.HistoryModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.databinding.ActivityNewColonyBinding;
 import com.moutamid.justbee.models.ColonyModel;
@@ -40,6 +41,10 @@ public class NewColonyActivity extends AppCompatActivity {
             ColonyModel colonyModel = getColonyData();
             Constants.databaseReference().child(Constants.COLONY).child(colonyModel.getId()).setValue(colonyModel)
                     .addOnSuccessListener(unused -> {
+                        String date = Constants.getFormattedDate(colonyModel.getDate());
+                        String event = "Added " + colonyModel.getName() + " " + colonyModel.getQueenOrigin() + ", " + colonyModel.getColonyOrigin();
+                        HistoryModel history = new HistoryModel(colonyModel.getId(), date, event);
+                        Constants.databaseReference().child(Constants.ColonyAnalysis).child(colonyModel.getId()).push().setValue(history);
                         Constants.dismissDialog();
                         colonyList.add(colonyModel);
                         Stash.put(Constants.COLONY, colonyList);
