@@ -68,7 +68,9 @@ public class HomeFragment extends Fragment {
         }
         for (ColonyModel colony : coloniesList) {
             String colonyLocation = colony.getLocation();
-            locationColonyCount.put(colonyLocation, locationColonyCount.get(colonyLocation) + 1);
+            if (!colonyLocation.isEmpty()){
+                locationColonyCount.put(colonyLocation, locationColonyCount.get(colonyLocation) + 1);
+            }
         }
 
         for (LocationModel location : locationList) {

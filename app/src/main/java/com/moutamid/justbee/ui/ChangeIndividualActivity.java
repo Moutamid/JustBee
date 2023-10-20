@@ -13,12 +13,14 @@ import com.google.android.material.chip.Chip;
 import com.moutamid.justbee.R;
 import com.moutamid.justbee.databinding.ActivityChangeIndividualBinding;
 import com.moutamid.justbee.models.ColonyModel;
+import com.moutamid.justbee.models.HistoryModel;
 import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.utilis.Types;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +121,10 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " pest to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
                     Constants.dismissDialog();
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
@@ -152,6 +158,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " treatment to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -184,6 +196,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Queen Origin to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -224,6 +242,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Brood to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -249,6 +273,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Honey Production to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -282,6 +312,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Colony Origin to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -306,6 +342,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Colony Loss to " + loss;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -338,6 +380,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Feed to " + finalFeed;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
@@ -362,6 +410,12 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+
+                    String time = Constants.getFormattedDate(new Date().getTime());
+                    String event = "Change Colony# " + selectedID + " Location to " + location;
+                    HistoryModel history = new HistoryModel(selectedID, time, event);
+                    Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
+
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
                         if (model.getId().equals(selectedID)) {
