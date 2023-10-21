@@ -27,7 +27,7 @@ import java.util.Locale;
 public class Constants {
 
     static Dialog dialog;
-    public static final String DATE_FORMAT = "MMM dd, yyyy";
+    public static final String DATE_FORMAT = "MMM dd, yyyy (hh:mm aa)";
     public static final String LOCATIONS_LIST = "LOCATIONS_LIST";
     public static final String COLONY = "COLONY";
     public static String ACTIVITY_NAME = "ACTIVITY_NAME";

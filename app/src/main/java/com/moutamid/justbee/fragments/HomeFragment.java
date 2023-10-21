@@ -25,6 +25,7 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     TableAdapter adapter;
     ArrayList<QueenPerformance> table;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -42,10 +43,10 @@ public class HomeFragment extends Fragment {
 
         table = getTableData();
         int count = 0;
-        for (QueenPerformance tt : table){
+        for (QueenPerformance tt : table) {
             count += Integer.parseInt(tt.getColumn2());
         }
-        binding.total.setText(count+"");
+        binding.total.setText(count + "");
         binding.LocationRC.setHasFixedSize(false);
         binding.LocationRC.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
     }
 
     private ArrayList<QueenPerformance> getTableData() {
-        ArrayList<QueenPerformance> list  = new ArrayList<>();
+        ArrayList<QueenPerformance> list = new ArrayList<>();
         ArrayList<LocationModel> locationList = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
         ArrayList<ColonyModel> coloniesList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
 
@@ -68,13 +69,15 @@ public class HomeFragment extends Fragment {
         }
         for (ColonyModel colony : coloniesList) {
             String colonyLocation = colony.getLocation();
-            if (!colonyLocation.isEmpty()){
+            if (!colonyLocation.isEmpty()) {
                 locationColonyCount.put(colonyLocation, locationColonyCount.get(colonyLocation) + 1);
             }
         }
 
         for (LocationModel location : locationList) {
-            list.add(new QueenPerformance(location.getName(), String.valueOf(locationColonyCount.get(location.getName()))));
+            if (locationColonyCount.get(location.getName()) != 0) {
+                list.add(new QueenPerformance(location.getName(), String.valueOf(locationColonyCount.get(location.getName()))));
+            }
         }
 
         return list;

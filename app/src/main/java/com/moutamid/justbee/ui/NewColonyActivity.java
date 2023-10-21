@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
 import com.moutamid.justbee.models.HistoryModel;
+import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.databinding.ActivityNewColonyBinding;
 import com.moutamid.justbee.models.ColonyModel;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class NewColonyActivity extends AppCompatActivity {
     ActivityNewColonyBinding binding;
     ArrayList<ColonyModel> colonyList;
+    ArrayAdapter<String> locList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,15 @@ public class NewColonyActivity extends AppCompatActivity {
         binding.toolbar.title.setText("Add New Colony");
 
         colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
+
+        List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+        List<String> locc = new ArrayList<>();
+
+        for (LocationModel l : loc){
+            locc.add(l.getName());
+        }
+        locList = new ArrayAdapter<>(NewColonyActivity.this, android.R.layout.simple_spinner_dropdown_item, locc);
+        binding.locationListNew.setAdapter(locList);
 
         binding.add.setOnClickListener(v -> {
             Constants.showDialog();
@@ -83,7 +94,7 @@ public class NewColonyActivity extends AppCompatActivity {
         int random6DigitNumber = random.nextInt(max - min + 1) + min;
         colonyModel.setId(String.valueOf(random6DigitNumber));
         colonyModel.setName(binding.name.getEditText().getText().toString());
-        colonyModel.setLocation("");
+        colonyModel.setLocation(binding.locationNew.getEditText().getText().toString());
         colonyModel.setQueenOrigin(queenOrigin);
         colonyModel.setColonyOrigin(colonyOrigin);
         colonyModel.setBrood("");

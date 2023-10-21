@@ -122,7 +122,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(unused -> {
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " pest to " + finalFeed;
+                    String event = "Change pest to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
                     Constants.dismissDialog();
@@ -160,7 +160,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " treatment to " + finalFeed;
+                    String event = "Change treatment to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -198,7 +198,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Queen Origin to " + finalFeed;
+                    String event = "Change Queen Origin to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -244,7 +244,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Brood to " + finalFeed;
+                    String event = "Change Brood to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -275,7 +275,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Honey Production to " + finalFeed;
+                    String event = "Change Honey Production to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -314,7 +314,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Colony Origin to " + finalFeed;
+                    String event = "Change Colony Origin to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -344,7 +344,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Colony Loss to " + loss;
+                    String event = "Change Colony Loss to " + loss;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -382,7 +382,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Feed to " + finalFeed;
+                    String event = "Change Feed to " + finalFeed;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 
@@ -412,7 +412,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
 
                     String time = Constants.getFormattedDate(new Date().getTime());
-                    String event = "Change Colony# " + selectedID + " Location to " + location;
+                    String event = "Change Location to " + location;
                     HistoryModel history = new HistoryModel(selectedID, time, event);
                     Constants.databaseReference().child(Constants.ColonyAnalysis).child(selectedID).push().setValue(history);
 

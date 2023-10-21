@@ -49,7 +49,7 @@ public class ManageLocationsActivity extends AppCompatActivity {
 
         locations = new ArrayList<>();
 
-        binding.counter.setText("Total Locations : " + locations.size() + "/40");
+        binding.counter.setText("Total Locations : " + locations.size());
 
         binding.locRC.setHasFixedSize(false);
         binding.locRC.setLayoutManager(new LinearLayoutManager(this));
@@ -67,7 +67,7 @@ public class ManageLocationsActivity extends AppCompatActivity {
                             }
 
                             locations.sort(Comparator.comparing(LocationModel::getName));
-                            binding.counter.setText("Total Locations : " + locations.size() + "/40");
+                            binding.counter.setText("Total Locations : " + locations.size());
                             adapter = new LocationAdapter(locations);
                             binding.locRC.setAdapter(adapter);
                             Stash.put(Constants.LOCATIONS_LIST, locations);
