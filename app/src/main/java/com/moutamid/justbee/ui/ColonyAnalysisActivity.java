@@ -50,7 +50,7 @@ public class ColonyAnalysisActivity extends AppCompatActivity {
 
         List<String> colonyID = new ArrayList<>();
         for (ColonyModel model : colonies) {
-            colonyID.add(model.getId());
+            colonyID.add(model.getName());
         }
         idList = new ArrayAdapter<>(ColonyAnalysisActivity.this, android.R.layout.simple_spinner_dropdown_item, colonyID);
         binding.colonyIdLIst.setAdapter(idList);
@@ -61,6 +61,7 @@ public class ColonyAnalysisActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedID = (String) parent.getItemAtPosition(position);
+
                 getData(selectedID);
             }
         });

@@ -54,9 +54,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             ColonyModel model = snapshot.getValue(ColonyModel.class);
                             colonyList.add(model);
                         }
-                        Stash.put(Constants.COLONY, colonyList);
+                        colonyList.sort(Comparator.comparing(ColonyModel::getName));
                     }
-
+                    Stash.clear(Constants.COLONY);
+                    Stash.put(Constants.COLONY, colonyList);
                     Constants.databaseReference().child(Constants.LOCATIONS_LIST)
                             .get().addOnFailureListener(error -> {
                                 Constants.dismissDialog();
@@ -71,8 +72,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                         locations.add(model);
                                     }
                                     locations.sort(Comparator.comparing(LocationModel::getName));
-                                    Stash.put(Constants.LOCATIONS_LIST, locations);
                                 }
+                                Stash.clear(Constants.LOCATIONS_LIST);
+                                Stash.put(Constants.LOCATIONS_LIST, locations);
                                 binding.bottomNav.setSelectedItemId(R.id.nav_home);
                             });
 

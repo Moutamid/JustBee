@@ -254,7 +254,7 @@ public class AnalyticsFragment extends Fragment {
             for (ColonyModel colony : coloniesInLocation) {
                 String pest = colony.getPests().replaceAll("[,\\s]+$", "");
                 String dd = pest.isEmpty() ? "No Pest" : pest;
-                subList.add(new QueenPerformance(colony.getId(), dd));
+                subList.add(new QueenPerformance(colony.getName(), dd));
                 model.setList(subList);
             }
 
@@ -297,7 +297,7 @@ public class AnalyticsFragment extends Fragment {
                     loss = "No Loss";
                 }
 
-                subList.add(new QueenPerformance(colony.getId(), loss));
+                subList.add(new QueenPerformance(colony.getName(), loss));
                 model.setList(subList);
             }
 
@@ -334,7 +334,7 @@ public class AnalyticsFragment extends Fragment {
             double totalHoneyProduction = 0;
 
             for (ColonyModel colony : coloniesInLocation) {
-                subList.add(new QueenPerformance(colony.getId(), String.valueOf(colony.getHoneyProduction())));
+                subList.add(new QueenPerformance(colony.getName(), String.valueOf(colony.getHoneyProduction())));
                 model.setList(subList);
             }
 

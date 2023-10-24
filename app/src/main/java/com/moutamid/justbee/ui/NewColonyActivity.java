@@ -15,6 +15,7 @@ import com.moutamid.justbee.databinding.ActivityNewColonyBinding;
 import com.moutamid.justbee.models.ColonyModel;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -50,7 +51,7 @@ public class NewColonyActivity extends AppCompatActivity {
         binding.add.setOnClickListener(v -> {
             Constants.showDialog();
             ColonyModel colonyModel = getColonyData();
-            Constants.databaseReference().child(Constants.COLONY).child(colonyModel.getId()).setValue(colonyModel)
+            Constants.databaseReference().child(Constants.COLONY).child(colonyModel.getName()).setValue(colonyModel)
                     .addOnSuccessListener(unused -> {
                         String date = Constants.getFormattedDate(new Date().getTime());
                         String event = "Added " + colonyModel.getName() + " " + colonyModel.getQueenOrigin() + ", " + colonyModel.getColonyOrigin();
@@ -58,6 +59,7 @@ public class NewColonyActivity extends AppCompatActivity {
                         Constants.databaseReference().child(Constants.ColonyAnalysis).child(colonyModel.getId()).push().setValue(history);
                         Constants.dismissDialog();
                         colonyList.add(colonyModel);
+                        colonyList.sort(Comparator.comparing(ColonyModel::getName));
                         Stash.put(Constants.COLONY, colonyList);
                         Toast.makeText(this, "Colony Added", Toast.LENGTH_SHORT).show();
                         onBackPressed();
@@ -88,12 +90,8 @@ public class NewColonyActivity extends AppCompatActivity {
             }
         }
 
-        Random random = new Random();
-        int min = 000000;
-        int max = 999999;
-        int random6DigitNumber = random.nextInt(max - min + 1) + min;
-        colonyModel.setId(String.valueOf(random6DigitNumber));
-        colonyModel.setName(binding.name.getEditText().getText().toString());
+        colonyModel.setId(binding.name.getEditText().getText().toString().trim());
+        colonyModel.setName(binding.name.getEditText().getText().toString().trim());
         colonyModel.setLocation(binding.locationNew.getEditText().getText().toString());
         colonyModel.setQueenOrigin(queenOrigin);
         colonyModel.setColonyOrigin(colonyOrigin);

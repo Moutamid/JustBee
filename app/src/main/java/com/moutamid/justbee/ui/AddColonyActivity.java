@@ -36,6 +36,7 @@ import com.moutamid.justbee.databinding.ActivityAddColonyBinding;
 import com.moutamid.justbee.models.ColonyModel;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -75,6 +76,7 @@ public class AddColonyActivity extends AppCompatActivity {
                                     }
                                     adapter = new ColonyAdapter(colonyList);
                                     binding.colonyRC.setAdapter(adapter);
+                                    colonyList.sort(Comparator.comparing(ColonyModel::getName));
                                     Stash.put(Constants.COLONY, colonyList);
                                     binding.counter.setText("Total Colony : " + colonyList.size());
                                 }

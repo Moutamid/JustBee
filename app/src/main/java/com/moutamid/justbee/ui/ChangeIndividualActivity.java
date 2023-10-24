@@ -54,7 +54,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
         List<String> colonyID = new ArrayList<>();
         for (ColonyModel model : colonies) {
-            colonyID.add(model.getId());
+            colonyID.add(model.getName());
         }
         locList = new ArrayAdapter<>(ChangeIndividualActivity.this, android.R.layout.simple_spinner_dropdown_item, locc);
         idList = new ArrayAdapter<>(ChangeIndividualActivity.this, android.R.layout.simple_spinner_dropdown_item, colonyID);
@@ -128,7 +128,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
                     Constants.dismissDialog();
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setPests(finalFeed);
                         }
                     }
@@ -166,7 +166,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setTreatment(finalFeed);
                         }
                     }
@@ -204,7 +204,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setQueenOrigin(finalFeed);
                         }
                     }
@@ -250,7 +250,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setBrood(finalFeed);
                         }
                     }
@@ -281,7 +281,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setHoneyProduction(finalFeed);
                         }
                     }
@@ -320,7 +320,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setColonyOrigin(finalFeed);
                         }
                     }
@@ -350,7 +350,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setColonyLoss(loss);
                         }
                     }
@@ -388,7 +388,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setFeed(finalFeed);
                         }
                     }
@@ -418,7 +418,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
 
                     ArrayList<ColonyModel> colonyList = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
                     for (ColonyModel model : colonyList) {
-                        if (model.getId().equals(selectedID)) {
+                        if (model.getName().equals(selectedID)) {
                             model.setLocation(location);
                         }
                     }
@@ -434,7 +434,7 @@ public class ChangeIndividualActivity extends AppCompatActivity {
         ColonyModel colonyModel = null;
 
         for (ColonyModel colony : colonyList) {
-            if (colony.getId().equals(selectedID)) {
+            if (colony.getName().equals(selectedID)) {
                 colonyModel = colony;
                 break;
             }
