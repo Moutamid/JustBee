@@ -68,18 +68,18 @@ public class AddColonyActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Constants.dismissDialog();
+                                colonyList.clear();
                                 if (snapshot.exists()) {
-                                    colonyList.clear();
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                                         ColonyModel model = dataSnapshot.getValue(ColonyModel.class);
                                         colonyList.add(model);
                                     }
-                                    adapter = new ColonyAdapter(colonyList);
-                                    binding.colonyRC.setAdapter(adapter);
                                     colonyList.sort(Comparator.comparing(ColonyModel::getName));
-                                    Stash.put(Constants.COLONY, colonyList);
-                                    binding.counter.setText("Total Colony : " + colonyList.size());
                                 }
+                                adapter = new ColonyAdapter(colonyList);
+                                binding.colonyRC.setAdapter(adapter);
+                                Stash.put(Constants.COLONY, colonyList);
+                                binding.counter.setText("Total Colony : " + colonyList.size());
                             }
 
                             @Override
