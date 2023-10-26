@@ -1,16 +1,28 @@
 package com.moutamid.justbee.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fxn.stash.Stash;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.textfield.TextInputLayout;
 import com.moutamid.justbee.R;
+import com.moutamid.justbee.adapters.LocationAdapter;
 import com.moutamid.justbee.databinding.ActivityChangeIndividualBinding;
 import com.moutamid.justbee.models.ColonyModel;
 import com.moutamid.justbee.models.HistoryModel;
@@ -18,6 +30,7 @@ import com.moutamid.justbee.models.LocationModel;
 import com.moutamid.justbee.utilis.Constants;
 import com.moutamid.justbee.utilis.Types;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -44,21 +57,26 @@ public class ChangeIndividualActivity extends AppCompatActivity {
         binding.toolbar.back.setOnClickListener(v -> onBackPressed());
         binding.toolbar.title.setText(Constants.ACTIVITY_NAME);
 
-        List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+        /*List<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
         List<String> locc = new ArrayList<>();
 
         for (LocationModel l : loc){
             locc.add(l.getName());
         }
+        locList = new ArrayAdapter<>(ChangeIndividualActivity.this, android.R.layout.simple_spinner_dropdown_item, locc);
+        binding.locationList.setAdapter(locList);*/
+
+        binding.location.getEditText().setOnClickListener(v -> {
+            showLocationDialog();
+        });
+
         ArrayList<ColonyModel> colonies = Stash.getArrayList(Constants.COLONY, ColonyModel.class);
 
         List<String> colonyID = new ArrayList<>();
         for (ColonyModel model : colonies) {
             colonyID.add(model.getName());
         }
-        locList = new ArrayAdapter<>(ChangeIndividualActivity.this, android.R.layout.simple_spinner_dropdown_item, locc);
         idList = new ArrayAdapter<>(ChangeIndividualActivity.this, android.R.layout.simple_spinner_dropdown_item, colonyID);
-        binding.locationList.setAdapter(locList);
         binding.colonyIdLIst.setAdapter(idList);
 
         loss = new ArrayList<>();
@@ -102,6 +120,53 @@ public class ChangeIndividualActivity extends AppCompatActivity {
         });
 
     }
+
+    private void showLocationDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.location_dialog);
+        dialog.setCancelable(false);
+
+        ArrayList<LocationModel> loc = Stash.getArrayList(Constants.LOCATIONS_LIST, LocationModel.class);
+
+        ImageView close = dialog.findViewById(R.id.close);
+        RecyclerView locationRC = dialog.findViewById(R.id.locationRC);
+        TextInputLayout search = dialog.findViewById(R.id.search);
+
+        locationRC.setLayoutManager(new LinearLayoutManager(this));
+        locationRC.setHasFixedSize(false);
+
+        LocationAdapter adapter = new LocationAdapter(this, loc, model -> {
+            dialog.dismiss();
+            binding.location.getEditText().setText(model.getName());
+        });
+        locationRC.setAdapter(adapter);
+
+        search.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
     private void updatePest() {
         String diseases = "";
         for (int i = 0; i < binding.diseasesChipGroup.getChildCount(); i++) {

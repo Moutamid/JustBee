@@ -52,25 +52,26 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Select Location"
             android:visibility="gone"
+            android:hint="Select Location"
             app:boxCornerRadiusBottomEnd="10sp"
             app:boxCornerRadiusBottomStart="10sp"
             app:boxCornerRadiusTopEnd="10sp"
-            app:boxCornerRadiusTopStart="10sp"
-            app:boxStrokeColor="@color/stroke"
-            app:hintEnabled="true"
-            app:hintTextColor="@color/green">
+            app:boxCornerRadiusTopStart="10sp">
 
-            <AutoCompleteTextView
-                android:id="@+id/locationList"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:clickable="false"
+                android:fontFamily="@font/poppins"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
