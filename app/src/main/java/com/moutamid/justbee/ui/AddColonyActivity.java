@@ -127,10 +127,7 @@ public class AddColonyActivity extends AppCompatActivity {
                         .removeValue().addOnFailureListener(e -> {
                             Toast.makeText(AddColonyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }).addOnSuccessListener(unused -> {
-                            String time = Constants.getFormattedDate(new Date().getTime());
-                            String event = "Removed " + model.getName() + ", " + model.getQueenOrigin() + ", " + model.getColonyOrigin();
-                            HistoryModel history = new HistoryModel(model.getId(), time, event);
-                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).push().setValue(history);
+                            Constants.databaseReference().child(Constants.ColonyAnalysis).child(model.getId()).removeValue();
                             Toast.makeText(AddColonyActivity.this, "Colony Removed", Toast.LENGTH_SHORT).show();
                         });
             });
