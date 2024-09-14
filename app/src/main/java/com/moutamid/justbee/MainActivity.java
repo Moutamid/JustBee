@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Constants.databaseReference().child(Constants.COLONY)
                 .get()
                 .addOnSuccessListener(dataSnapshot -> {
-
                     if (dataSnapshot.exists()) {
                         colonyList.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -55,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             colonyList.add(model);
                         }
                         colonyList.sort(Comparator.comparing(ColonyModel::getName));
+                    } else {
+                        Constants.dismissDialog();
                     }
                     Stash.clear(Constants.COLONY);
                     Stash.put(Constants.COLONY, colonyList);
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 Stash.clear(Constants.LOCATIONS_LIST);
                                 Stash.put(Constants.LOCATIONS_LIST, locations);
                                 binding.bottomNav.setSelectedItemId(R.id.nav_home);
+                            }).addOnFailureListener(e -> {
+                                Constants.dismissDialog();
+                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
 
                 }).addOnFailureListener(error -> {

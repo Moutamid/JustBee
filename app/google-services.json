@@ -1,26 +1,37 @@
 {
   "project_info": {
-    "project_number": "306021134096",
-    "project_id": "justbee-143be",
-    "storage_bucket": "justbee-143be.appspot.com"
+    "project_number": "347811869733",
+    "firebase_url": "https://recover-projects-default-rtdb.firebaseio.com",
+    "project_id": "recover-projects",
+    "storage_bucket": "recover-projects.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:306021134096:android:81a4acf4d0fc341eecff95",
+        "mobilesdk_app_id": "1:347811869733:android:26055353bbcf286eae3bcc",
         "android_client_info": {
           "package_name": "com.moutamid.justbee"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "347811869733-3tqq77r3hrscqah1kj7trgormg5pceb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDerIf2d_uhXFHytBWzzwD8nLMhlOy7A3o"
+          "current_key": "AIzaSyC-KByd3rZ8tsUnBskYep8Y5lsuEExa5t0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347811869733-3tqq77r3hrscqah1kj7trgormg5pceb4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
